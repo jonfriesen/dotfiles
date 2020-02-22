@@ -23,6 +23,6 @@ fi
 # Remove file created by strap
 rm -rf ~/.gitconfig
 
-for i in git node tmux nvim zsh; do
+for i in git nvim zsh; do
   stow $i
 done

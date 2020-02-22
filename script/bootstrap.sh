@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt update && upgrade -y
+sudo apt update && sudo apt upgrade -y
 
 sudo add-apt-repository ppa:mmstick76/alacritty -y
 
