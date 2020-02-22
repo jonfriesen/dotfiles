@@ -100,6 +100,9 @@ source $ZSH/oh-my-zsh.sh
 
 export TERM=xterm
 
+alias vim="nvim"
+alias vi="nvim"
+
 # GOPATH
 export GOPATH=$HOME/code/go
 export GOBIN=$GOPATH/bin
