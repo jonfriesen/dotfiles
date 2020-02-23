@@ -8,43 +8,58 @@ silent! helptags ALL
 " Plugins will be downloaded under the specified directory.
 call plug#begin('~/.vim/plugged')
 
-
-" This is a weird theme that Eddie uses
-" Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'fortes/vim-escuro'
-
-Plug 'itchyny/lightline.vim'
-
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/nerdcommenter'
-
+" git
 Plug 'airblade/vim-gitgutter'
+" Plug 'tpope/vim-fugitive'
+
+" language/file
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'SirVer/ultisnips'
+Plug 'sheerun/vim-polyglot'
 
+" visual
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'itchyny/lightline.vim'
+
+" formatting
+Plug 'tpope/vim-sleuth'
+
+" misc
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+" Plug 'prettier/vim-prettier', {
+  " \ 'do': 'npm install',
+  " \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
 set encoding=utf-8
 set autoread
+
+" tab sizes
 set tabstop=4
-set shiftwidth=4
+
 filetype plugin indent on
+
+syntax enable
 syntax on
 
-colorscheme escuro
-" this line was use to pass through native terminal background for dracule
-" highlight Normal ctermfg=NONE ctermbg=NONE
+" indent
+set autoindent
+set cindent
 
-" let g:lightline = { 'colorscheme': 'dracula' }
+" temp files
+set nobackup
+set nowritebackup
+set noswapfile
+
+silent! color dracula "if started before plugins installed this would throw an error
+let g:lightline = { 'colorscheme': 'dracula' }
+set termguicolors
 
 " Line numbers
 set relativenumber
@@ -101,6 +116,9 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
+
+" map FZF to ctrl+p
+nnoremap <c-p> :FZF<cr>
 
 " Default fzf layout
 " - down / up / left / right
