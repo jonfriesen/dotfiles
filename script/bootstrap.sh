@@ -8,7 +8,13 @@ apt update && apt upgrade -y
 
 apt install software-properties-common -y
 
-add-apt-repository ppa:mmstick76/alacritty -y
+add-apt-repository -y -u \
+	ppa:mmstick76/alacritty
+
+add-apt-repository -y -u \
+	ppa:neovim-ppa/stable
+
+apt update
 
 apt install -y \
 	zsh \
