@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# if sudoer, set user/home
+USER=${SUDO_USER:-$USER}
+HOME=$(eval echo ~$USER)
+
 apt update && apt upgrade -y
 
 apt install software-properties-common -y
@@ -37,9 +41,12 @@ mv ./kubectl /usr/local/bin/kubectl
 kubectl version --client
 
 # fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-# we don't install zsh because this is preconfigured in our setup.sh
-~/.fzf/install --all --no-zsh
+su - $USER -c "git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf"
+# we don't install zsh completions because this is preconfigured in our setup.sh
+su - $USER -c "$HOME/.fzf/install --all --no-zsh"
 
 # yarn
 npm install -g yarn
+
+# change user shell to ZSH
+chsh -s $(which zsh) $USER

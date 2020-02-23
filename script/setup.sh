@@ -26,6 +26,9 @@ fi
 # Remove file created by strap
 rm -rf ~/.gitconfig
 
-for i in git nvim zsh; do
+for i in git nvim zsh alacritty ; do
   stow $i
 done
+
+# Install vim plugins
+nvim +PlugInstall +qall
