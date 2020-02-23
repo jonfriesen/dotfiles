@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $EUID != 0 ]; then
+    echo "Please run command with sudo!"
+    exit 1
+fi
+
 # if sudoer, set user/home
 USER=${SUDO_USER:-$USER}
 HOME=$(eval echo ~$USER)
