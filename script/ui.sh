@@ -8,7 +8,7 @@ dpkg -i google-chrome-stable_current_amd64.deb
 snap install spotify
 
 # vscode (this should probably check if xserver or something is installed)
-./vscode.sh
+. ./vscode.sh
 apt install code-insiders -y
 
 # Add VS Code extensions
