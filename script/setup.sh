@@ -26,7 +26,7 @@ fi
 # Remove file created by strap
 rm -rf ~/.gitconfig
 
-for i in git nvim zsh alacritty ; do
+for i in git nvim zsh alacritty tmux ; do
   stow $i
 done
 

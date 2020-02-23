@@ -34,6 +34,9 @@ fi
 # this will not work if snap doesn't exist ;) 
 snap install --classic go
 
+# install tmux
+snap install tmux --classic
+
 # kubectl
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 chmod +x ./kubectl
