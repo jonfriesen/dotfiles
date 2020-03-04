@@ -104,6 +104,7 @@ alias vim="nvim"
 alias vi="nvim"
 
 # GOPATH
+export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/code/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
@@ -118,3 +119,6 @@ alias yolo="sudo \$(history | tail -1 | awk \"{\\\$1 = \\\"\\\"; print \\\$0}\")
 if [  ]; then source <(kubectl completion zsh); fi
 # - shortcut alias
 alias k=kubectl
+
+# add direnv to zsh so it will load the cthulhu .envrc
+eval "$(direnv hook zsh)"

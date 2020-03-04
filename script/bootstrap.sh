@@ -37,13 +37,14 @@ apt install -y \
 
 # Add user to docker group
 if [[ -v $USER ]]; then
-	usermod -aG docker $USER
-	newgrp docker
+	su - $USER -c "usermod -aG docker $USER"
+	su - $USER -c "newgrp docker"
 fi
 
 # install go
 # this will not work if snap doesn't exist ;) 
-snap install --classic go
+# this install is broken af, install it yourself
+# snap install --classic go
 
 # install tmux
 snap install tmux --classic
