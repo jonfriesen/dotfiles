@@ -49,12 +49,18 @@ local on_attach = function(client, bufnr)
 end
 
 require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "sumneko_lua",
+        "gopls",
+        "golangci_lint_ls",
+    },
+})
 require("lspconfig").sumneko_lua.setup {
     settings = {
         Lua = {
             diagnostics = {
-                globals = { 'vim' }
+                globals = { 'vim', 'a' }
             }
         }
     }
