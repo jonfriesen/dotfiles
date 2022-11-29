@@ -72,6 +72,7 @@ return require("packer").startup({
     use({
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
+        config =function () require("treesitter_config") end,
     })
     use({
         "hrsh7th/nvim-cmp",
