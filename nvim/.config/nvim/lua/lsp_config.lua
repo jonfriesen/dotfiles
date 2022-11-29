@@ -56,7 +56,9 @@ require("mason-lspconfig").setup({
         "golangci_lint_ls",
     },
 })
-require("lspconfig").sumneko_lua.setup {
+
+local lspconfig = require("lspconfig")
+lspconfig.sumneko_lua.setup {
     settings = {
         Lua = {
             diagnostics = {
@@ -65,7 +67,7 @@ require("lspconfig").sumneko_lua.setup {
         }
     }
 }
-require'lspconfig'.gopls.setup{
+lspconfig.gopls.setup{
     capabilities = capabilities,
     on_attach = on_attach,
     flags = {
@@ -73,7 +75,6 @@ require'lspconfig'.gopls.setup{
     },
 }
 
-local lspconfig = require 'lspconfig'
 
 lspconfig.golangci_lint_ls.setup{
 	capabilities = capabilities,
