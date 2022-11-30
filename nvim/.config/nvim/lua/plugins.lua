@@ -43,7 +43,7 @@ return require("packer").startup({
     })
     use({ "onsails/lspkind-nvim" })
 
-    use({ "Mofiqul/dracula.nvim" }) 
+    use({ "Mofiqul/dracula.nvim" })
     use({
         "nvim-lualine/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -76,7 +76,7 @@ return require("packer").startup({
     })
     use({
         "hrsh7th/nvim-cmp",
-        config = function() require("completion") end,
+        config = function() require("cmp_config") end,
         requires = {
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-buffer",
