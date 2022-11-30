@@ -95,6 +95,10 @@ return require("packer").startup({
         keys = { "gc", "gb" },
         config = function() require("Comment").setup {} end,
     })
+    use({
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end,
+    })
 
     if packer_bootstrap then
       require("packer").sync()
