@@ -56,8 +56,7 @@ return require("packer").startup({
     })
     use({
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.0",
-        requires = { 
+        requires = {
             "nvim-lua/plenary.nvim",
             -- this allows live_grep and grep_string to work
             -- requires ripgrep to be installed, eg:
@@ -65,10 +64,6 @@ return require("packer").startup({
             "BurntSushi/ripgrep"
         },
     })
---    use({
---        "fatih/vim-go",
---        run = ":GoInstallBinaries"
---    })
     use({
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
