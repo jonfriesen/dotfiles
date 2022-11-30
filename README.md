@@ -18,3 +18,7 @@ A collection of my dotfiles for macos. This is a work in progress.
 from the this repo's root run:
 - `stow nvim`
 - open nvim and run `PackerSync`
+
+## todo
+
+- [ ] pair down the golang-ci linters to the bare minimum.

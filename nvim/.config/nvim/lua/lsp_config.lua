@@ -79,7 +79,6 @@ lspconfig.gopls.setup{
 lspconfig.golangci_lint_ls.setup{
 	capabilities = capabilities,
 	on_attach = on_attach,
-	settings = {},
 	flags = {
 		debounce_text_changes = 150,
 	},
