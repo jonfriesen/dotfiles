@@ -22,3 +22,4 @@ from the this repo's root run:
 ## todo
 
 - [ ] pair down the golang-ci linters to the bare minimum.
+- [ ] add functionality to run specific tests under cursor (vim-go?)
