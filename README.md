@@ -23,3 +23,11 @@ from the this repo's root run:
 
 - [ ] pair down the golang-ci linters to the bare minimum.
 - [ ] add functionality to run specific tests under cursor (vim-go?)
+- [ ] add mysql lsp
+- [ ] add svelte lsp (and generic js?)
+- [ ] add tailwind lsp
+- [ ] add bash lsp + linting support
+- [ ] add markdown previewing (glow?)
+- [ ] add cheatsheet file
+- [ ] add git config template
+- [ ] add tmux config
