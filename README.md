@@ -27,9 +27,9 @@ from the this repo's root run:
 - [ ] add mysql lsp
 - [ ] add svelte lsp (and generic js?)
 - [ ] add tailwind lsp
-- [ ] add bash lsp + linting support
 - [ ] add markdown previewing (glow?)
 - [ ] add cheatsheet file
 - [ ] add git config template
-- [ ] add tmux config
 - [ ] script the brew commands above
+- [ ] add + configure floaterm
+- [ ] document all the plugins
