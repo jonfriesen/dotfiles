@@ -54,6 +54,9 @@ require("mason-lspconfig").setup({
         "sumneko_lua",
         "gopls",
         "golangci_lint_ls",
+        "bashls",
+        "jsonls",
+        "yamlls"
     },
 })
 
@@ -67,6 +70,7 @@ lspconfig.sumneko_lua.setup {
         }
     }
 }
+
 lspconfig.gopls.setup{
     capabilities = capabilities,
     on_attach = on_attach,
@@ -83,6 +87,12 @@ lspconfig.golangci_lint_ls.setup{
 		debounce_text_changes = 150,
 	},
 }
+
+lspconfig.bashls.setup{}
+
+lspconfig.jsonls.setup{}
+
+lspconfig.yamlls.setup{}
 
 -- organize imports (thanks bashbunni)
 -- https://github.com/neovim/nvim-lspconfig/issues/115#issuecomment-902680058

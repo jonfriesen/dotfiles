@@ -17,7 +17,8 @@ A collection of my dotfiles for macos. This is a work in progress.
 
 from the this repo's root run:
 - `stow nvim`
-- open nvim and run `PackerSync`
+- `stow tmux`
+- install packer plugins `nvim +PackerSync`
 
 ## todo
 
@@ -31,3 +32,4 @@ from the this repo's root run:
 - [ ] add cheatsheet file
 - [ ] add git config template
 - [ ] add tmux config
+- [ ] script the brew commands above
