@@ -33,3 +33,4 @@ from the this repo's root run:
 - [ ] script the brew commands above
 - [ ] add + configure floaterm
 - [ ] document all the plugins
+- [ ] replace tmux conf with vim-sensible + dracula theme. inspo: [bashbunni/dotfiles/.tmux.conf](https://github.com/bashbunni/dotfiles/blob/mac/.tmux.conf)
