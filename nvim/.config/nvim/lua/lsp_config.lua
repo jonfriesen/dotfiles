@@ -56,9 +56,16 @@ require("mason-lspconfig").setup({
         "golangci_lint_ls",
         "bashls",
         "jsonls",
-        "yamlls"
+        "yamlls",
+        "sqlls",
+        "tsserver",
+        "svelte",
+        "tailwindcss",
     },
 })
+
+-- LSP options and configs can be found here:
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 
 local lspconfig = require("lspconfig")
 lspconfig.sumneko_lua.setup {
@@ -93,6 +100,14 @@ lspconfig.bashls.setup{}
 lspconfig.jsonls.setup{}
 
 lspconfig.yamlls.setup{}
+
+lspconfig.sqlls.setup{}
+
+lspconfig.tsserver.setup{}
+
+lspconfig.svelte.setup{}
+
+lspconfig.tailwindcss.setup{}
 
 -- organize imports (thanks bashbunni)
 -- https://github.com/neovim/nvim-lspconfig/issues/115#issuecomment-902680058
