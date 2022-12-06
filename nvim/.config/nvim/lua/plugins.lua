@@ -29,7 +29,9 @@ return require("packer").startup({
     -- Packer can manage itself
     use({ "wbthomason/packer.nvim" })
 
-    -- lsp
+    -- Mason is a lsp/formatter/linter/debugger package manager.
+    -- It needs to be used in conjunction with other plugins like
+    -- mason-lspconfig. 
     use({
         "williamboman/mason.nvim",
         config = function() require("lsp_config") end,
@@ -37,23 +39,31 @@ return require("packer").startup({
             "williamboman/mason-lspconfig.nvim",
         },
     })
+    -- This should be removed?
     use({
         "neovim/nvim-lspconfig",
     --     after = "williamboman/mason.nvim",
     })
+    -- Adds pretty symbols in the lsp autocompletion to indicate
+    -- the difference between variables, functions, etc
     use({ "onsails/lspkind-nvim" })
 
+    -- Themeh
     use({ "Mofiqul/dracula.nvim" })
+    -- Styled status line
     use({
         "nvim-lualine/lualine.nvim",
         requires = { "kyazdani42/nvim-web-devicons", opt = true },
     })
+    -- Shows ui line with all of the open vim buffers at the telescope
+    -- of the window.
     use({
         "akinsho/bufferline.nvim",
         tag = "v3.*",
         requires = "nvim-tree/nvim-web-devicons",
         config = function() require("bufferline").setup{} end,
     })
+    -- The ultimate searching tool.
     use({
         "nvim-telescope/telescope.nvim",
         requires = {
@@ -64,11 +74,14 @@ return require("packer").startup({
             "BurntSushi/ripgrep"
         },
     })
+    -- Adds better syntax highlighting than the default
     use({
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate",
         config =function () require("treesitter_config") end,
     })
+    -- Completion interface. The required packages within this
+    -- block offer things like filesystem path, buffer, and lsp completion.
     use({
         "hrsh7th/nvim-cmp",
         config = function() require("cmp_config") end,
@@ -80,22 +93,27 @@ return require("packer").startup({
             "hrsh7th/cmp-nvim-lsp-signature-help",
         },
     })
+    -- snippets
+    -- I don't think this is working?
     use({
         'L3MON4D3/luasnip',
         requires = {
             'rafamadriz/friendly-snippets',
         },
     })
+    -- lazy git interface, looks similar to vscodes src control interface.
     use({
         -- this plugin requires lazygit to be installed
         "kdheepak/lazygit.nvim",
     })
+    -- Easily adds group/block commenting
     use({
         "numToStr/Comment.nvim",
         module = "Comment",
         keys = { "gc", "gb" },
         config = function() require("Comment").setup {} end,
     })
+    -- Completes common pairs, eg. {}, "", []...
     use({
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end,

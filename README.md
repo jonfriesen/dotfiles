@@ -34,5 +34,4 @@ from the this repo's root run:
 - [ ] add git config template
 - [ ] script the brew commands above
 - [ ] add + configure floaterm
-- [ ] document all the plugins
 - [ ] replace tmux conf with tmux-sensible + dracula theme. inspo: [bashbunni/dotfiles/.tmux.conf](https://github.com/bashbunni/dotfiles/blob/mac/.tmux.conf)
