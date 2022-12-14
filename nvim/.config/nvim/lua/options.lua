@@ -16,6 +16,10 @@ vim.wo.signcolumn = 'yes'
 vim.o.number = true
 vim.o.relativenumber = true
 
+-- disabling netrw for nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- theme
 vim.cmd[[colorscheme dracula]]
 require('lualine').setup {

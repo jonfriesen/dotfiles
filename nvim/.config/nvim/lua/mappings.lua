@@ -33,3 +33,7 @@ key_mapper('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
 
 -- lazygit
 key_mapper('n', '<leader>gg', '<cmd>LazyGit<CR>')
+
+-- nvim-tree
+key_mapper('n', '<leader>ft', '<cmd>NvimTreeToggle<CR>')
+key_mapper('n', '<leader>ftf', '<cmd>NvimTreeFindFile<CR>')

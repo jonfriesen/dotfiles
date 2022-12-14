@@ -118,6 +118,12 @@ return require("packer").startup({
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end,
     })
+    -- nvim-tree is a file explorer
+    use({
+        "nvim-tree/nvim-tree.lua",
+        requires = { "nvim-tree/nvim-web-devicons" },
+        config = function() require("nvim-tree").setup() end,
+    })
 
     if packer_bootstrap then
       require("packer").sync()
