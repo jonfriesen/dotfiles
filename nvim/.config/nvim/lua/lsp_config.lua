@@ -84,6 +84,13 @@ lspconfig.gopls.setup{
     flags = {
         debounce_text_change = 150,
     },
+    settings = {
+        gopls = {
+            -- I use this build tag commonly though it'd be nice to be able
+            -- to set it on a project to project basis...
+            buildFlags = { "-tags=e2e" },
+        },
+    },
 }
 
 
