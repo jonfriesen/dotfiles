@@ -39,10 +39,12 @@ return require("packer").startup({
             "williamboman/mason-lspconfig.nvim",
         },
     })
-    -- This should be removed?
+    -- Manages LSP configs
     use({
         "neovim/nvim-lspconfig",
-    --     after = "williamboman/mason.nvim",
+        requires = {
+            "j-hui/fidget.nvim",
+        },
     })
     -- Adds pretty symbols in the lsp autocompletion to indicate
     -- the difference between variables, functions, etc

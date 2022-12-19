@@ -116,6 +116,9 @@ lspconfig.svelte.setup{}
 
 lspconfig.tailwindcss.setup{}
 
+-- Fidget needs to be loaded after the lsp's are setup
+require("fidget").setup{}
+
 -- organize imports (thanks bashbunni)
 -- https://github.com/neovim/nvim-lspconfig/issues/115#issuecomment-902680058
 function OrganizeImports(timeoutms)
