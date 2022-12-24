@@ -4,6 +4,7 @@ A collection of my dotfiles for macos. This is a work in progress.
 
 ## prereqs
 
+### neovim
 - `brew install stow`
 - `brew install nvim`
 - `brew tap homebrew/cask-fonts`
@@ -13,12 +14,18 @@ A collection of my dotfiles for macos. This is a work in progress.
     - this is for telescope find grep fuzzy searching
 - `brew install lazygit`
 
+### tmux
+- install tpm
+    - `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
+
 ## installing
 
 from the this repo's root run:
 - `stow nvim`
 - `stow tmux`
 - install packer plugins `nvim +PackerSync`
+- install tmux tmux plugins
+    - `<prefix>+I` (note: default prefix in this config is `<C-a>`)
 
 ## notes
 
@@ -34,4 +41,3 @@ from the this repo's root run:
 - [ ] add git config template
 - [ ] script the brew commands above
 - [ ] add + configure floaterm
-- [ ] replace tmux conf with tmux-sensible + dracula theme. inspo: [bashbunni/dotfiles/.tmux.conf](https://github.com/bashbunni/dotfiles/blob/mac/.tmux.conf)
