@@ -102,6 +102,9 @@ return require("packer").startup({
         requires = {
             'rafamadriz/friendly-snippets',
         },
+        config = function ()
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
     })
     -- lazy git interface, looks similar to vscodes src control interface.
     use({
