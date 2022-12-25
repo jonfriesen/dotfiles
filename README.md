@@ -15,6 +15,7 @@ A collection of my dotfiles for macos. This is a work in progress.
 - `brew install lazygit`
 
 ### tmux
+- `brew install tmux reattach-to-user-namespace`
 - install tpm
     - `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
 
