@@ -75,6 +75,7 @@ return require("packer").startup({
             --  $ brew install ripgrep
             "BurntSushi/ripgrep"
         },
+        config = function() require("telescope_config") end,
     })
     -- Adds better syntax highlighting than the default
     use({

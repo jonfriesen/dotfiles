@@ -25,9 +25,9 @@ key_mapper('', '<right>', '<nop>')
 key_mapper('n', '<leader>pv', '<cmd>Ex<CR>')
 
 -- telescope
-key_mapper('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<CR>')
-key_mapper('n', '<leader>ff', '<cmd>Telescope find_files<CR>')
-key_mapper('n', '<leader>fg', '<cmd>Telescope live_grep<CR>')
+key_mapper('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find hidden=true<CR>')
+key_mapper('n', '<leader>ff', '<cmd>Telescope find_files hidden=true<CR>')
+key_mapper('n', '<leader>fg', '<cmd>Telescope live_grep hidden=true<CR>')
 key_mapper('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
 key_mapper('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
 
