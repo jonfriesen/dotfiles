@@ -127,7 +127,7 @@ return require("packer").startup({
     use({
         "nvim-tree/nvim-tree.lua",
         requires = { "nvim-tree/nvim-web-devicons" },
-        config = function() require("nvim-tree").setup() end,
+        config = function() require("nvimtree_config") end,
     })
     -- detects tabstop and shiftwidth automagically
     use({ "tpope/vim-sleuth" })
