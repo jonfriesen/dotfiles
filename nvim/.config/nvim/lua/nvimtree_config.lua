@@ -12,14 +12,15 @@ local tree_cb = nvim_tree_config.nvim_tree_callback
 
 -- this closes nvim tree if it's the last buffer open
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Auto-Close
-vim.api.nvim_create_autocmd("BufEnter", {
-  nested = true,
-  callback = function()
-    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
-      vim.cmd "quit"
-    end
-  end
-})
+-- NOTE: disabling this because it's has issues with telescope
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   nested = true,
+--   callback = function()
+--     if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
+--       vim.cmd "quit"
+--     end
+--   end
+-- })
 
 nvim_tree.setup {
     disable_netrw = true,
