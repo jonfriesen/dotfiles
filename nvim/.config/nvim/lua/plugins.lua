@@ -132,6 +132,16 @@ return require("packer").startup({
     })
     -- detects tabstop and shiftwidth automagically
     use({ "tpope/vim-sleuth" })
+    -- guidelines
+    use({
+        "lukas-reineke/indent-blankline.nvim",
+        config = function ()
+            require("indent_blankline").setup {
+                char = '┊',
+                show_trailing_blankline_indent = false,
+            }
+        end,
+    })
 
     if packer_bootstrap then
       require("packer").sync()
