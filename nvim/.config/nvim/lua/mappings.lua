@@ -30,6 +30,7 @@ key_mapper('n', '<leader>ff', '<cmd>Telescope find_files hidden=true<CR>')
 key_mapper('n', '<leader>fg', '<cmd>Telescope live_grep hidden=true<CR>')
 key_mapper('n', '<leader>fb', '<cmd>Telescope buffers<CR>')
 key_mapper('n', '<leader>fh', '<cmd>Telescope help_tags<CR>')
+key_mapper('n', '<leader>fr', '<cmd>Telescope resume<CR>')
 
 -- lazygit
 key_mapper('n', '<leader>gg', '<cmd>LazyGit<CR>')
