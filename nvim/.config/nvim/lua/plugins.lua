@@ -130,8 +130,6 @@ return require("packer").startup({
         requires = { "nvim-tree/nvim-web-devicons" },
         config = function() require("nvimtree_config") end,
     })
-    -- detects tabstop and shiftwidth automagically
-    use({ "tpope/vim-sleuth" })
     -- guidelines
     use({
         "lukas-reineke/indent-blankline.nvim",
