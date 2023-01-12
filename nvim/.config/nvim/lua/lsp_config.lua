@@ -101,19 +101,40 @@ lspconfig.golangci_lint_ls.setup{
 	},
 }
 
-lspconfig.bashls.setup{}
+lspconfig.bashls.setup{
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
 
-lspconfig.jsonls.setup{}
+lspconfig.jsonls.setup{
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
 
-lspconfig.yamlls.setup{}
+lspconfig.yamlls.setup{
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
 
-lspconfig.sqlls.setup{}
+lspconfig.sqlls.setup{
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
 
-lspconfig.tsserver.setup{}
+lspconfig.tsserver.setup{
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
 
-lspconfig.svelte.setup{}
+lspconfig.svelte.setup{
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
 
-lspconfig.tailwindcss.setup{}
+lspconfig.tailwindcss.setup{
+	capabilities = capabilities,
+	on_attach = on_attach,
+}
 
 -- Fidget needs to be loaded after the lsp's are setup
 require("fidget").setup{}
