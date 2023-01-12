@@ -29,15 +29,17 @@ local on_attach = function(client, bufnr)
 
 	buf_set_keymap("n", "<leader>fd", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
 
-		vim.cmd([[
-			augroup formatting
-				autocmd! * <buffer>
-				autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-                autocmd BufWritePre <buffer> lua OrganizeImports(150)
-			augroup END
-		]])
+	vim.cmd([[
+		augroup formatting
+			autocmd! * <buffer>
+			autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+			autocmd BufWritePre <buffer> lua OrganizeImports(150)
+		augroup END
+	]])
 
-	-- Set autocommands conditional on server_capabilities
+	-- Find the clients capabilities
+	local cap = client.server_capabilities
+	if cap.document_highlight then
 		vim.cmd([[
 			augroup lsp_document_highlight
 				autocmd! * <buffer>
@@ -45,6 +47,7 @@ local on_attach = function(client, bufnr)
 				autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 			augroup END
 		]])
+	end
 end
 
 require("mason").setup()
