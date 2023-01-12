@@ -52,18 +52,18 @@ end
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = {
-        "sumneko_lua",
-        "gopls",
-        "golangci_lint_ls",
-        "bashls",
-        "jsonls",
-        "yamlls",
-        "sqlls",
-        "tsserver",
-        "svelte",
-        "tailwindcss",
-    },
+	ensure_installed = {
+		"sumneko_lua",
+		"gopls",
+		"golangci_lint_ls",
+		"bashls",
+		"jsonls",
+		"yamlls",
+		"sqlls",
+		"tsserver",
+		"svelte",
+		"tailwindcss",
+	},
 })
 
 -- LSP options and configs can be found here:
@@ -71,28 +71,28 @@ require("mason-lspconfig").setup({
 
 local lspconfig = require("lspconfig")
 lspconfig.sumneko_lua.setup {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim', 'a' }
-            }
-        }
-    }
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { 'vim', 'a' }
+			}
+		}
+	}
 }
 
 lspconfig.gopls.setup{
-    capabilities = capabilities,
-    on_attach = on_attach,
-    flags = {
-        debounce_text_change = 150,
-    },
-    settings = {
-        gopls = {
-            -- I use this build tag commonly though it'd be nice to be able
-            -- to set it on a project to project basis...
-            buildFlags = { "-tags=e2e" },
-        },
-    },
+	capabilities = capabilities,
+	on_attach = on_attach,
+	flags = {
+		debounce_text_change = 150,
+	},
+	settings = {
+		gopls = {
+			-- I use this build tag commonly though it'd be nice to be able
+			-- to set it on a project to project basis...
+			buildFlags = { "-tags=e2e" },
+		},
+	},
 }
 
 
