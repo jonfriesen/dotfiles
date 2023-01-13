@@ -32,5 +32,6 @@ require('lualine').setup {
 	}
 }
 
+-- this was set as part of the indent-blankline plugin
 vim.opt.list = true
 vim.opt.listchars:append "space:⋅"

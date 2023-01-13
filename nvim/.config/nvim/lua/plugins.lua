@@ -43,6 +43,7 @@ return require("packer").startup({
 		use({
 			"neovim/nvim-lspconfig",
 			requires = {
+				-- this is a dope plugin that shows lsp loading in the bottom right corner
 				"j-hui/fidget.nvim",
 			},
 		})
