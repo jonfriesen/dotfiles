@@ -27,11 +27,21 @@ from the this repo's root run:
 - install packer plugins `nvim +PackerSync`
 - install tmux tmux plugins
     - `<prefix>+I` (note: default prefix in this config is `<C-a>`)
+- add the following line to the ~/.zprofile
+	- `alias tenv='~/dotfiles/scripts/_init.sh`
 
 ## notes
 
 - I think mason-lspconfig _should_ install the ensured lsp servers though I'm not totally confident on that. 
 - I'm not sure the `sqlls` lsp is working.
+
+### iterm2 configs
+There's lots missing here...
+
+- Making alt + left/right error jump characters in iterm2 and tmux
+	- Preferences > Profile > Keys > Key Mappings
+	- Update alt + < to *Action: Esc Key* and character to send to `b`
+	- Update alt + > to *Action: Esc Key* and character to send to `f`
 
 ## todo
 
