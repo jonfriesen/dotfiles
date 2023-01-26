@@ -3,8 +3,6 @@
 SESSIONNAME="blog"
 tmux has-session -t $SESSIONNAME &> /dev/null
 
-print -Pn "\e]2;$SESSIONNAME\a"
-
 if [ $? != 0 ]
  then
 	tmux new-session -s $SESSIONNAME -d

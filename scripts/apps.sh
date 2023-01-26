@@ -3,8 +3,6 @@
 SESSIONNAME="apps"
 tmux has-session -t $SESSIONNAME &> /dev/null
 
-print -Pn "\e]4;$SESSIONNAME\a"
-
 if [ $? != 0 ]
  then
 	tmux new-session -s $SESSIONNAME -d

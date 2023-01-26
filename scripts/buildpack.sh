@@ -24,8 +24,6 @@ fi
 # Create a variable with the root directory name
 root_dir=$(basename $dir)
 
-print -Pn "\e]2;$SESSIONNAME\a"
-
 SESSIONNAME="$root_dir"
 tmux has-session -t $SESSIONNAME &> /dev/null
 
