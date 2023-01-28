@@ -26,14 +26,21 @@ for file in $DIR/*.sh; do
 done
 
 if [ "$script_found" = false ]; then
-  echo "Script not found: $script_name"
-  echo "Available options:"
-  for file in $DIR/*.sh; do
-    # Get the filename without the .sh extension
-    filename="${file%.*}"
-    command=`basename $filename`
-    if [[ $command != _* ]]; then
-      echo " - $command"
-    fi
-  done
+  if [ -d "$script_name" ]; then
+	  "$DIR"/_generic.sh "$script_name" "$@"
+	  script_found=true
+	  exit 0
+  fi
+  if [ "$script_found" = false ]; then
+    echo "Script not found: $script_name"
+    echo "Available options:"
+    for file in $DIR/*.sh; do
+      # Get the filename without the .sh extension
+      filename="${file%.*}"
+      command=`basename $filename`
+      if [[ $command != _* ]]; then
+        echo " - $command"
+      fi
+    done
+  fi
 fi
