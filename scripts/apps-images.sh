@@ -1,8 +1,9 @@
 #!/bin/zsh
 
 SESSIONNAME="apps-images"
-tmux has-session -t $SESSIONNAME &> /dev/null
+echo -ne "\033]0;"🖼️ $SESSIONNAME"\007"
 
+tmux has-session -t $SESSIONNAME &> /dev/null
 if [ $? != 0 ]
  then
 	tmux new-session -s $SESSIONNAME -d
