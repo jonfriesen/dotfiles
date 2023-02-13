@@ -1,6 +1,6 @@
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
 	-- NOTE: Remember that lua is a real programming language, and as such it is possible
 	-- to define small helper and utility functions so you don't have to repeat yourself
 	-- many times.
@@ -40,7 +40,9 @@ local on_attach = function(_, bufnr)
 	vim.api.nvim_create_autocmd("BufWritePre", {
 		pattern = { "*" },
 		callback = function()
-			vim.lsp.buf.format({ timeout_ms = 3000 })
+			if client.server_capabilities.documentFormattingProvider then
+				vim.lsp.buf.format() -- consider adding { timeout_ms = 3000 } if needed
+			end
 		end,
 	})
 
