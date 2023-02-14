@@ -13,6 +13,9 @@ require('telescope').setup {
             "vendor/",
             "node_modules/",
         },
+        path_display = {
+            "smart",
+        },
     },
     pickers = {
         live_grep = { additional_args = function(_) return { "--hidden" } end },
