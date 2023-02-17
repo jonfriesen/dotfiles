@@ -18,7 +18,8 @@ local on_attach = function(client, bufnr)
 	nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 	nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-	nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+	-- nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+	nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 	nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 	nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 	nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
@@ -40,7 +41,7 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_create_autocmd("BufWritePre", {
 		pattern = { "*" },
 		callback = function()
-			if client.server_capabilities.documentFormattingProvider then
+			if client.server_capabilities.document_formatting then
 				vim.lsp.buf.format() -- consider adding { timeout_ms = 3000 } if needed
 			end
 		end,
@@ -91,7 +92,7 @@ local servers = {
 	-- rust_analyzer = {},
 	-- tsserver = {},
 
-	lua_ls = {
+	sumneko_lua = {
 		Lua = {
 			workspace = { checkThirdParty = false },
 			telemetry = { enable = false },
