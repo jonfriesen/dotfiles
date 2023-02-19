@@ -47,8 +47,5 @@ There's lots missing here...
 
 - [ ] pair down the golang-ci linters to the bare minimum.
 - [ ] add functionality to run specific tests under cursor (vim-go?)
-- [ ] add markdown previewing (glow?)
-- [ ] add cheatsheet file
 - [ ] add git config template
 - [ ] script the brew commands above
-- [ ] add + configure floaterm
