@@ -79,7 +79,15 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
 	-- clangd = {},
-	gopls = {},
+	gopls = {
+		settings = {
+			gopls = {
+				-- I use this build tag commonly though it'd be nice to be able
+				-- to set it on a project to project basis...
+				buildFlags = { "-tags=e2e,integration,sandbox" },
+			},
+		},
+	},
 	golangci_lint_ls = {},
 	bashls = {},
 	jsonls = {},
