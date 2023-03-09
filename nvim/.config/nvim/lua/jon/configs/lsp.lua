@@ -41,7 +41,7 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_create_autocmd("BufWritePre", {
 		pattern = { "*" },
 		callback = function()
-			if client.server_capabilities.document_formatting then
+			if client.server_capabilities.documentFormattingProvider then
 				vim.lsp.buf.format() -- consider adding { timeout_ms = 3000 } if needed
 			end
 		end,
