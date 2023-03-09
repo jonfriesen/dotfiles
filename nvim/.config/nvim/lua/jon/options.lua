@@ -58,15 +58,20 @@ vim.o.foldlevelstart = 99
 -- Keep 7 lines on the screen above/below cursor
 vim.o.scrolloff = 7
 
+-- No swap or backup files
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.writebackup = false
+
 -- Set clip board
 vim.o.clipboard = 'unnamedplus'
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-    callback = function()
-      vim.highlight.on_yank()
-    end,
-    group = highlight_group,
-    pattern = '*',
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
 })
