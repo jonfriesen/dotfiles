@@ -125,6 +125,9 @@ require('packer').startup({
             'kdheepak/lazygit.nvim',
         })
 
+        -- vim-go convience go commands
+        use({ "fatih/vim-go" })
+
         -- github copilot
         use({ "github/copilot.vim" })
 
