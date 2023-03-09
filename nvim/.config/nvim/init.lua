@@ -1,3 +1,8 @@
+-- (for neo-tree) Disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Core
 require('jon.plugins')
 require('jon.options')
 require('jon.keymaps')
