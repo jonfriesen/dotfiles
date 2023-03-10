@@ -25,11 +25,14 @@ vim.o.smartcase = true
 
 -- Decrease update time
 vim.o.updatetime = 250
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+
+-- Set sign column
 vim.o.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -65,6 +68,10 @@ vim.o.writebackup = false
 
 -- Set clip board
 vim.o.clipboard = 'unnamedplus'
+
+-- Set list
+vim.opt.list = true
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

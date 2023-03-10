@@ -3,14 +3,11 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- Core
-require('jon.plugins')
 require('jon.options')
 require('jon.keymaps')
+require('jon.plugins')
 
 -- Plugin configs
-require('jon.configs.lualine')
-require('jon.configs.blankline')
-require('jon.configs.gitsigns')
 require('jon.configs.telescope')
 require('jon.configs.treesitter')
 require('jon.configs.lsp')

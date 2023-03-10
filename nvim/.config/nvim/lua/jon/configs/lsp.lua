@@ -1,6 +1,6 @@
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
 	-- NOTE: Remember that lua is a real programming language, and as such it is possible
 	-- to define small helper and utility functions so you don't have to repeat yourself
 	-- many times.
@@ -37,15 +37,6 @@ local on_attach = function(client, bufnr)
 	nmap('<leader>wl', function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, '[W]orkspace [L]ist Folders')
-
-	vim.api.nvim_create_autocmd("BufWritePre", {
-		pattern = { "*" },
-		callback = function()
-			if client.server_capabilities.documentFormattingProvider then
-				vim.lsp.buf.format() -- consider adding { timeout_ms = 3000 } if needed
-			end
-		end,
-	})
 
 	vim.api.nvim_create_autocmd("BufWritePre", {
 		pattern = { "*.go" },
@@ -100,7 +91,7 @@ local servers = {
 	-- rust_analyzer = {},
 	-- tsserver = {},
 
-	sumneko_lua = {
+	lua_ls = {
 		Lua = {
 			workspace = { checkThirdParty = false },
 			telemetry = { enable = false },
