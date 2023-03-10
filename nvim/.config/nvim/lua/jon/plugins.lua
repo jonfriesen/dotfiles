@@ -191,6 +191,6 @@ require('lazy').setup({
     --     import = 'jon.plugins',
     -- },
     require 'jon.plugins.autoformat',
-    -- require 'jon.plugins.debug',
+    require 'jon.plugins.debug',
 
 }, {})
