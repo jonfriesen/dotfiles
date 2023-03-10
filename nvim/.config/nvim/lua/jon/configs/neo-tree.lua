@@ -5,7 +5,7 @@ if not status_ok then
 end
 
 neo_tree.setup({
-	close_if_last_window = true,
+	close_if_last_window = false,
 	enable_diagnostics = false,
 	popup_border_style = "rounded",
 	enable_git_status = true,
