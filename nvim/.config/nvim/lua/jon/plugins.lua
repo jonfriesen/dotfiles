@@ -174,7 +174,11 @@ require('lazy').setup({
 
     -- vim-go convience go commands
     {
-        "fatih/vim-go"
+        "fatih/vim-go",
+        config = function()
+            -- disable gopls in vim-go because I use the default LSP.
+            vim.g.go_gopls_enabled = 0
+        end,
     },
 
     -- github copilot

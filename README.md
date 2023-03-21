@@ -46,6 +46,5 @@ There's lots missing here...
 ## todo
 
 - [ ] pair down the golang-ci linters to the bare minimum.
-- [ ] add functionality to run specific tests under cursor (vim-go?)
 - [ ] add git config template
 - [ ] script the brew commands above
