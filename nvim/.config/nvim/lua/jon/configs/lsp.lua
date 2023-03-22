@@ -75,7 +75,7 @@ local servers = {
 			gopls = {
 				-- I use this build tag commonly though it'd be nice to be able
 				-- to set it on a project to project basis...
-				buildFlags = { "-tags=e2e,integration,sandbox" },
+				buildFlags = { "-tags", "e2e", "integration", "sandbox" },
 			},
 		},
 	},
