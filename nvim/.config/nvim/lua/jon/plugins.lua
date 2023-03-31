@@ -57,6 +57,7 @@ require('lazy').setup({
         'nvim-treesitter/nvim-treesitter',
         dependencies = {
             'nvim-treesitter/nvim-treesitter-textobjects',
+            'nvim-treesitter/nvim-treesitter-context',
         },
         config = function()
             pcall(require('nvim-treesitter.install').update { with_sync = true })
@@ -173,13 +174,13 @@ require('lazy').setup({
     },
 
     -- vim-go convience go commands
-    {
-        "fatih/vim-go",
-        config = function()
-            -- disable gopls in vim-go because I use the default LSP.
-            vim.g.go_gopls_enabled = 0
-        end,
-    },
+    -- {
+    --     "fatih/vim-go",
+    --     config = function()
+    --         -- disable gopls in vim-go because I use the default LSP.
+    --         vim.g.go_gopls_enabled = 0
+    --     end,
+    -- },
 
     -- github copilot
     {
