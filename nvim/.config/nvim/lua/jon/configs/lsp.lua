@@ -66,17 +66,16 @@ end
 local servers = {
 	-- clangd = {},
 	gopls = {
-		settings = {
-			gopls = {
-				cmd = { 'gopls', '--remote=auto' },
-				-- I use these build tags commonly though it'd be nice to be able
-				-- to set it on a project to project basis...
-				buildFlags = { '-tags', 'e2e', 'integration', 'sandbox' },
-				completeUnimported = true,
-				staticcheck = true,
-				analyses = {
-					unusedparams = true,
-				},
+		cmd = { 'gopls', '--remote=auto' },
+		gopls = {
+			-- I use these build tags commonly though it'd be nice to be able
+			-- to set it on a project to project basis...
+			buildFlags = { "-tags=e2e integration sandbox" },
+			completeUnimported = true,
+			staticcheck = true,
+			gofumpt = true,
+			analyses = {
+				unusedparams = true,
 			},
 		},
 	},
