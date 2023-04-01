@@ -187,6 +187,10 @@ require('lazy').setup({
         "github/copilot.vim",
     },
 
+    -- Testing at the speed of thought.
+    {
+        'vim-test/vim-test',
+    },
     -- load in plugins
     --  Note: this should work to load all plugins in the plugins folders
     --  but it seems to be broken. I'm not sure why.
