@@ -68,9 +68,15 @@ local servers = {
 	gopls = {
 		settings = {
 			gopls = {
-				-- I use this build tag commonly though it'd be nice to be able
+				cmd = { 'gopls', '--remote=auto' },
+				-- I use these build tags commonly though it'd be nice to be able
 				-- to set it on a project to project basis...
-				buildFlags = { "-tags", "e2e", "integration", "sandbox" },
+				buildFlags = { '-tags', 'e2e', 'integration', 'sandbox' },
+				completeUnimported = true,
+				staticcheck = true,
+				analyses = {
+					unusedparams = true,
+				},
 			},
 		},
 	},
