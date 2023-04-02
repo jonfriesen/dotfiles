@@ -45,11 +45,15 @@ require('lazy').setup({
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',
             'L3MON4D3/LuaSnip',
+            'rafamadriz/friendly-snippets',
             'saadparwaiz1/cmp_luasnip',
             'hrsh7th/cmp-nvim-lsp-signature-help',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-buffer'
         },
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+        end,
     },
 
     -- Highlight, edit, and navigate code
