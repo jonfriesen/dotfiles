@@ -73,10 +73,10 @@ local servers = {
 			buildFlags = { "-tags=e2e integration sandbox" },
 			completeUnimported = true,
 			staticcheck = true,
-			gofumpt = true,
-			analyses = {
-				unusedparams = true,
-			},
+			-- gofumpt = true,
+			-- analyses = {
+			-- 	unusedparams = true,
+			-- },
 		},
 	},
 	golangci_lint_ls = {},
