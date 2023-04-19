@@ -187,9 +187,9 @@ require('lazy').setup({
     -- },
 
     -- github copilot
-    {
-        "github/copilot.vim",
-    },
+    -- {
+    --     "github/copilot.vim",
+    -- },
 
     -- Testing at the speed of thought.
     {
