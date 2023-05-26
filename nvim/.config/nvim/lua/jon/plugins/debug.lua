@@ -22,8 +22,6 @@ return {
     'leoluz/nvim-dap-go',
   },
   config = function()
-    require('mason').setup()
-
     local dap = require 'dap'
     local dapui = require 'dapui'
 
@@ -32,6 +30,10 @@ return {
       -- reasonable debug configurations
       automatic_setup = true,
 
+      -- You can provide additional configuration to the handlers,
+      -- see mason-nvim-dap README for more information
+      handlers = {},
+
       -- You'll need to check that you have the required things installed
       -- online, please don't ask me how to install them :)
       ensure_installed = {
@@ -39,10 +41,6 @@ return {
         'delve',
       },
     }
-
-    -- You can provide additional configuration to the handlers,
-    -- see mason-nvim-dap README for more information
-    require('mason-nvim-dap').setup_handlers()
 
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue)
@@ -71,9 +69,12 @@ return {
           step_back = 'b',
           run_last = '▶▶',
           terminate = '⏹',
+          disconnect = "⏏",
         },
       },
     }
+    -- toggle to see last session result. Without this ,you can't see session output in case of unhandled exception.
+    vim.keymap.set("n", "<F7>", dapui.toggle)
 
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close

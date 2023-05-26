@@ -12,12 +12,17 @@ neo_tree.setup({
 	source_selector = {
 		winbar = true,
 		content_layout = "center",
-		tab_labels = {
-			filesystem = " File",
-			buffers = "➜ Buffs",
-			git_status = " Git",
-			diagnostics = "",
+		sources = {
+			{ source = "filesystem", display_name = " 󰉓 Files " },
+			{ source = "buffers",    display_name = " ➜ Buffs " },
+			{ source = "git_status", display_name = " 󰊢 Git " },
 		},
+		-- tab_labels = {
+		-- 	filesystem = " File",
+		-- 	buffers = "➜ Buffs",
+		-- 	git_status = " Git",
+		-- 	diagnostics = "",
+		-- },
 	},
 	default_component_configs = {
 		indent = {
