@@ -27,6 +27,7 @@ require('lazy').setup({
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
             {
                 'j-hui/fidget.nvim',
+                tag = "legacy",
                 opts = {},
             },
 
@@ -205,5 +206,6 @@ require('lazy').setup({
     -- },
     require 'jon.plugins.autoformat',
     require 'jon.plugins.debug',
+    require 'jon.plugins.prettier',
 
 }, {})
