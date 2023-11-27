@@ -11,7 +11,7 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Enable mouse mode
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Enable break indent
 vim.o.breakindent = true
@@ -29,13 +29,13 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 -- Set sign column
-vim.o.signcolumn = 'yes'
+vim.o.signcolumn = "yes"
 
 -- Set colorscheme
 vim.o.termguicolors = true
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = "menuone,noselect"
 
 -- Number of spaces a tab counts as
 vim.o.tabstop = 4
@@ -67,18 +67,25 @@ vim.o.backup = false
 vim.o.writebackup = false
 
 -- Set clip board
-vim.o.clipboard = 'unnamedplus'
+vim.o.clipboard = "unnamedplus"
 
 -- Set list
 vim.opt.list = true
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
+local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+	group = highlight_group,
+	pattern = "*",
+})
+
+-- additional filetypes
+vim.filetype.add({
+	extension = {
+		templ = "templ",
+	},
 })
