@@ -39,6 +39,7 @@ vim.keymap.set("n", "<S-Left>", ":vertical resize +2<CR>")
 -- Navigate buffers
 vim.keymap.set("n", "<S-l>", ":bnext<CR>")
 vim.keymap.set("n", "<S-h>", ":bprevious<CR>")
+vim.keymap.set("n", "<leader>Q", ":%bd|e#|bd#<cr>", { desc = "Close all buffers except current" })
 
 -- Stay in indent mode
 vim.keymap.set("v", "<", "<gv")
