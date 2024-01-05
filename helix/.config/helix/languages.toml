@@ -3,6 +3,10 @@ name = "templ"
 auto-format = true
 
 [[language]]
+name = "typescript"
+auto-format = true
+
+[[language]]
 name = "go"
 # go install golang.org/x/tools/cmd/goimports@latest
 formatter = { command = "goimports" }
