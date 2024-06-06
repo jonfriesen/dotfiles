@@ -3,6 +3,8 @@ theme = "onedark"
 [editor]
 bufferline = "always"
 line-number = "relative"
+cursorline = true
+color-modes = true
 
 [editor.indent-guides]
 render = true
@@ -14,6 +16,7 @@ select = "underline"
 
 [editor.file-picker]
 hidden = false
+git-ignore = false
 
 [editor.soft-wrap]
 enable = true

@@ -11,3 +11,11 @@ auto-format = true
 name = "go"
 # go install golang.org/x/tools/cmd/goimports@latest
 formatter = { command = "goimports" }
+
+[[language]]
+name = "c"
+language-id = "c"
+scope = "source.c"
+auto-format = true
+file-types = ["c", "h"]
+language-servers = ["clangd"]
