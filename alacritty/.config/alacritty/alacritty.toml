@@ -2,6 +2,10 @@ import = [
   "~/.config/alacritty/onedark.toml"
 ]
 
+[window]
+option_as_alt = "Both"
+dimensions = { columns = 180, lines = 60 }
+
 [font]
 size = 12.5
 
@@ -16,4 +20,3 @@ family = "FiraCode Nerd Font"
 
 [font.normal]
 family = "FiraCode Nerd Font"
-
