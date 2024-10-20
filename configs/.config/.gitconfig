@@ -1,0 +1,25 @@
+[user]
+	email = jon@jonfriesen.ca
+	name = Jon Friesen
+[core]
+	editor = hx
+[url "git@github.com:"]
+	insteadOf = git://github.com/
+	insteadOf = https://github.com/
+	insteadOf = https://github.com/
+[alias]
+	save = !git add -A && git commit -m 'SAVEPOINT'
+	undo = reset HEAD~1 --mixed
+	amend = commit -a --amend
+	co = checkout
+	br = branch
+	ci = commit
+	st = status -sb
+	p = push
+	ll = log --oneline
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[rerere]
+	enabled = true

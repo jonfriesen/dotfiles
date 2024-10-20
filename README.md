@@ -2,49 +2,29 @@
 
 A collection of my dotfiles for macos. This is a work in progress.
 
-## prereqs
+## install
 
-### neovim
-- `brew install stow`
-- `brew install nvim`
-- `brew tap homebrew/cask-fonts`
-- `brew install --cask font-fira-code-nerd-font`
-    - set your iterm2 font to the one above
-- `brew install ripgrep`
-    - this is for telescope find grep fuzzy searching
-- `brew install lazygit`
+- `brew install stow iterm2 zellij helix fzf`
+- fonts
+  - `brew tap homebrew/cask-fonts`
+  - `brew install --cask font-fira-code-nerd-font`
+- oh-my-zsh
+  - `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+- setup fzf
+  - `source <(fzf --zsh)`
 
-### tmux
-- `brew install tmux reattach-to-user-namespace`
-- install tpm
-    - `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
+### hammerspoon
 
-## installing
+- `brew install hammerspoon`
+- `defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua"`
 
-from the this repo's root run:
-- `stow nvim`
-- `stow tmux`
-- install packer plugins `nvim +PackerSync`
-- install tmux tmux plugins
-    - `<prefix>+I` (note: default prefix in this config is `<C-a>`)
-- add the following line to the ~/.zprofile
-	- `alias tenv='~/dotfiles/scripts/_init.sh`
+### iterm2
 
-## notes
+- set your iterm2 font to the one above
 
-- I think mason-lspconfig _should_ install the ensured lsp servers though I'm not totally confident on that. 
-- I'm not sure the `sqlls` lsp is working.
-
-### iterm2 configs
-There's lots missing here...
+  There's lots missing here...
 
 - Making alt + left/right error jump characters in iterm2 and tmux
-	- Preferences > Profile > Keys > Key Mappings
-	- Update alt + < to *Action: Esc Key* and character to send to `b`
-	- Update alt + > to *Action: Esc Key* and character to send to `f`
-
-## todo
-
-- [ ] pair down the golang-ci linters to the bare minimum.
-- [ ] add git config template
-- [ ] script the brew commands above
+  - Preferences > Profile > Keys > Key Mappings
+  - Update alt + < to _Action: Esc Key_ and character to send to `b`
+  - Update alt + > to _Action: Esc Key_ and character to send to `f`
