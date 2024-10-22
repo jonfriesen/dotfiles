@@ -2,7 +2,6 @@
 ---
 --- Manage window positions and sizes with hotkeys
 ---
---- Download: [https://github.com/Hammerspoon/Spoons/raw/master/Spoons/WindowManager.spoon.zip](https://github.com/Hammerspoon/Spoons/raw/master/Spoons/WindowManager.spoon.zip)
 
 local obj = {}
 obj.__index = obj
@@ -10,8 +9,8 @@ obj.__index = obj
 -- Metadata
 obj.name = "WindowManager"
 obj.version = "1.0"
-obj.author = "Your Name <your@email.com>"
-obj.homepage = "https://github.com/Hammerspoon/Spoons"
+obj.author = "Jon Friesen <jon@jonfriesen.ca>"
+obj.homepage = "https://github.com/jonfriesen/dotfiles/tree/main/configs/.config/hammerspoon/Spoons"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 -- Internal function to move windows
@@ -41,6 +40,8 @@ function obj:init()
     
     self.leftRightSizes = {0.5, 2/3, 1/3}
     self.leftRightIndex = 1
+    self.topBottomSizes = {0.5, 2/3, 1/3}
+    self.topBottomIndex = 1
     self.upSizes = {0.75, 1}
     self.upIndex = 1
 end
@@ -54,8 +55,10 @@ function obj:bindHotkeys(mapping)
         quarterBottomRight = moveWindow(0.5, 0.5, 0.5, 0.5),
         cycleLeft = function() self:cycleLeftRight("left") end,
         cycleRight = function() self:cycleLeftRight("right") end,
-        cycleUp = function() self:cycleUp() end,
-        setDownSize = function() self:setDownSize() end
+        cycleTop = function() self:cycleTopBottom("top") end,
+        cycleBottom = function() self:cycleTopBottom("bottom") end,
+        superCycleUp = function() self:superCycleUp() end,
+        superCycleDown = function() self:superCycleDown() end
     }
     
     for action, func in pairs(spec) do
@@ -79,15 +82,26 @@ function obj:cycleLeftRight(side)
     self.leftRightIndex = (self.leftRightIndex % #self.leftRightSizes) + 1
 end
 
-function obj:cycleUp()
-    self.logger.v('Cycling up')
+function obj:cycleTopBottom(side)
+    self.logger.v('Cycling ' .. side)
+    local size = self.topBottomSizes[self.topBottomIndex]
+    if side == "top" then
+        moveWindow(0, 0, 1, size)()
+    else
+        moveWindow(0, 1 - size, 1, size)()
+    end
+    self.topBottomIndex = (self.topBottomIndex % #self.topBottomSizes) + 1
+end
+
+function obj:superCycleUp()
+    self.logger.v('Super cycling up')
     local size = self.upSizes[self.upIndex]
     moveWindow((1 - size) / 2, 0, size, 1)()
     self.upIndex = (self.upIndex % #self.upSizes) + 1
 end
 
-function obj:setDownSize()
-    self.logger.v('Setting down size')
+function obj:superCycleDown()
+    self.logger.v('Super cycling down')
     local win = hs.window.focusedWindow()
     if win then
         local f = win:frame()

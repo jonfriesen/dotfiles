@@ -2,7 +2,6 @@
 ---
 --- Enhance screen capture functionality with custom hotkeys
 ---
---- Download: [https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ScreenCapture.spoon.zip](https://github.com/Hammerspoon/Spoons/raw/master/Spoons/ScreenCapture.spoon.zip)
 
 local obj = {}
 obj.__index = obj
@@ -10,8 +9,8 @@ obj.__index = obj
 -- Metadata
 obj.name = "ScreenCapture"
 obj.version = "1.0"
-obj.author = "Your Name <your@email.com>"
-obj.homepage = "https://github.com/Hammerspoon/Spoons"
+obj.author = "Jon Friesen <jon@jonfriesen.ca>"
+obj.homepage = "https://github.com/jonfriesen/dotfiles/tree/main/configs/.config/hammerspoon/Spoons"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 function obj:init()

@@ -2,6 +2,8 @@
 hs.loadSpoon("ReverseScroll")
 hs.loadSpoon("WindowManager")
 hs.loadSpoon("ScreenCapture")
+hs.loadSpoon("Emojis")
+hs.loadSpoon("MiddleClickDragScroll"):start()
 
 -- Start the ReverseScroll Spoon
 -- spoon.ReverseScroll.logger.setLogLevel('debug')  -- Set to 'debug' for more verbose logging
@@ -16,8 +18,10 @@ spoon.WindowManager:bindHotkeys({
     quarterBottomRight = {{"ctrl", "cmd"}, "4"},
     cycleLeft = {{"ctrl", "cmd"}, "left"},
     cycleRight = {{"ctrl", "cmd"}, "right"},
-    cycleUp = {{"ctrl", "cmd"}, "up"},
-    setDownSize = {{"ctrl", "cmd"}, "down"}
+    cycleTop = {{"ctrl", "cmd"}, "up"},
+    cycleBottom = {{"ctrl", "cmd"}, "down"},
+    superCycleUp = {{"shift", "cmd"}, "up"},
+    superCycleDown = {{"shift", "cmd"}, "down"}
 })
 
 -- Set up hotkeys for ScreenCapture
@@ -27,3 +31,6 @@ spoon.ScreenCapture:bindHotkeys({
     captureSelectionToClipboard = {{"ctrl"}, "F13"},
     captureOptions = {{"cmd"}, "F13"}
 })
+
+-- Set up hotkeys for Emojis
+spoon.Emojis:bindHotkeys({ toggle = {{"alt", "shift"}, "z"} })
