@@ -55,10 +55,8 @@ function obj:bindHotkeys(mapping)
         quarterBottomRight = moveWindow(0.5, 0.5, 0.5, 0.5),
         cycleLeft = function() self:cycleLeftRight("left") end,
         cycleRight = function() self:cycleLeftRight("right") end,
-        cycleTop = function() self:cycleTopBottom("top") end,
-        cycleBottom = function() self:cycleTopBottom("bottom") end,
-        superCycleUp = function() self:superCycleUp() end,
-        superCycleDown = function() self:superCycleDown() end
+        cycleTop = function() self:adaptiveCycleVertical("top") end,
+        cycleBottom = function() self:adaptiveCycleVertical("bottom") end
     }
     
     for action, func in pairs(spec) do
@@ -82,40 +80,51 @@ function obj:cycleLeftRight(side)
     self.leftRightIndex = (self.leftRightIndex % #self.leftRightSizes) + 1
 end
 
-function obj:cycleTopBottom(side)
-    self.logger.v('Cycling ' .. side)
-    local size = self.topBottomSizes[self.topBottomIndex]
-    if side == "top" then
-        moveWindow(0, 0, 1, size)()
-    else
-        moveWindow(0, 1 - size, 1, size)()
-    end
-    self.topBottomIndex = (self.topBottomIndex % #self.topBottomSizes) + 1
-end
-
-function obj:superCycleUp()
-    self.logger.v('Super cycling up')
-    local size = self.upSizes[self.upIndex]
-    moveWindow((1 - size) / 2, 0, size, 1)()
-    self.upIndex = (self.upIndex % #self.upSizes) + 1
-end
-
-function obj:superCycleDown()
-    self.logger.v('Super cycling down')
+function obj:isPortraitMode()
     local win = hs.window.focusedWindow()
     if win then
-        local f = win:frame()
         local screen = win:screen()
         local max = screen:frame()
-        
-        f.w = 1024
-        f.h = 768
-        f.x = max.x + (max.w - f.w) / 2
-        f.y = max.y + (max.h - f.h) / 2
-        win:setFrame(f)
-        self.logger.v('Set window size to 1024x768')
+        return max.h > max.w
+    end
+    return false
+end
+
+function obj:adaptiveCycleVertical(direction)
+    self.logger.v('Adaptive cycling ' .. direction)
+    
+    if self:isPortraitMode() then
+        -- Use traditional top/bottom cycling for portrait monitors
+        local size = self.topBottomSizes[self.topBottomIndex]
+        if direction == "top" then
+            moveWindow(0, 0, 1, size)()
+        else
+            moveWindow(0, 1 - size, 1, size)()
+        end
+        self.topBottomIndex = (self.topBottomIndex % #self.topBottomSizes) + 1
     else
-        self.logger.w("No focused window found")
+        -- Use centered scaling for landscape monitors
+        if direction == "top" then
+            local size = self.upSizes[self.upIndex]
+            moveWindow((1 - size) / 2, 0, size, 1)()
+            self.upIndex = (self.upIndex % #self.upSizes) + 1
+        else
+            local win = hs.window.focusedWindow()
+            if win then
+                local f = win:frame()
+                local screen = win:screen()
+                local max = screen:frame()
+                
+                f.w = 1024
+                f.h = 768
+                f.x = max.x + (max.w - f.w) / 2
+                f.y = max.y + (max.h - f.h) / 2
+                win:setFrame(f)
+                self.logger.v('Set window size to 1024x768')
+            else
+                self.logger.w("No focused window found")
+            end
+        end
     end
 end
 

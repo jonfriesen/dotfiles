@@ -19,9 +19,7 @@ spoon.WindowManager:bindHotkeys({
     cycleLeft = {{"ctrl", "cmd"}, "left"},
     cycleRight = {{"ctrl", "cmd"}, "right"},
     cycleTop = {{"ctrl", "cmd"}, "up"},
-    cycleBottom = {{"ctrl", "cmd"}, "down"},
-    superCycleUp = {{"shift", "cmd"}, "up"},
-    superCycleDown = {{"shift", "cmd"}, "down"}
+    cycleBottom = {{"ctrl", "cmd"}, "down"}
 })
 
 -- Set up hotkeys for ScreenCapture
