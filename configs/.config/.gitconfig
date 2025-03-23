@@ -3,6 +3,7 @@
 	name = Jon Friesen
 [core]
 	editor = hx
+	autocrlf = true
 [url "git@github.com:"]
 	insteadOf = git://github.com/
 	insteadOf = https://github.com/
@@ -25,3 +26,8 @@
 	enabled = true
 [push]
 	autoSetupRemote = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
