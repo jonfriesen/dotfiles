@@ -4,6 +4,7 @@ hs.loadSpoon("WindowManager")
 hs.loadSpoon("ScreenCapture")
 hs.loadSpoon("Emojis")
 hs.loadSpoon("MiddleClickDragScroll"):start()
+hs.loadSpoon("URLDispatcher")
 
 -- Start the ReverseScroll Spoon
 -- spoon.ReverseScroll.logger.setLogLevel('debug')  -- Set to 'debug' for more verbose logging
@@ -32,3 +33,15 @@ spoon.ScreenCapture:bindHotkeys({
 
 -- Set up hotkeys for Emojis
 spoon.Emojis:bindHotkeys({ toggle = {{"alt", "shift"}, "z"} })
+
+-- Set up patterns and browsers for URLDispatcher
+spoon.URLDispatcher.logger.setLogLevel("debug")
+spoon.URLDispatcher.default_handler = "net.imput.Helium"
+spoon.URLDispatcher.url_patterns = {
+    -- Work patterns (evaluated first - more specific)
+    { "work.pat", "com.google.Chrome" },
+    
+    -- Personal patterns (evaluated second - broader catch-all)
+    { "personal.pat", "net.imput.Helium" },
+}
+spoon.URLDispatcher:start()
