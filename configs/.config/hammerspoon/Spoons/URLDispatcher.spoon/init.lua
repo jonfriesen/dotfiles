@@ -28,6 +28,19 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 --- Bundle ID's can be found using a command like: `osascript -e 'id of app "Chrome"'`
 obj.default_handler = "com.apple.Safari"
 
+--- URLDispatcher.browser_chooser
+--- Variable
+--- Browser chooser configuration. When set, shows a fuzzy-search picker instead of using default_handler.
+---
+--- Notes:
+--- A list of tables, each with `name` (display name), `bundleId` (application bundle ID),
+--- and optionally `patternFile` (path to a file where URL patterns can be saved).
+--- Example: {{name = "Personal", bundleId = "net.imput.Helium", patternFile = "~/.hammerspoon/personal-urls.txt"}}
+--- When a URL doesn't match any pattern, a chooser UI appears allowing selection.
+--- If dismissed without selection, the URL is not opened.
+--- Hold Shift when selecting a browser with a patternFile to save a URL pattern for future auto-dispatch.
+obj.browser_chooser = nil
+
 --- URLDispatcher.decode_slack_redir_urls
 --- Variable
 --- If true, handle Slack-redir URLs to apply the rule on the destination URL. Defaults to `true`
@@ -122,6 +135,12 @@ obj.pat_files = {}
 --- Internal variable containing a table where the watchers for the pattern files are kept indexed by file name.
 obj.pat_watchers = {}
 
+-- Internal state for browser chooser
+obj._chooser = nil
+obj._patternChooser = nil
+obj._pendingUrl = nil
+obj._pendingBrowser = nil
+
 -- Local functions to decode URLs
 function hex_to_char(x)
    return string.char(tonumber(x, 16))
@@ -184,6 +203,170 @@ function obj:setupPatfile(patfile)
    else
       return nil
    end
+end
+
+function obj:parseUrlPatterns(url)
+   -- Extract host from URL
+   local host = url:match("^https?://([^/]+)")
+   if not host then return {} end
+
+   -- Remove port if present
+   host = host:match("^([^:]+)")
+
+   local patterns = {}
+
+   -- Domain patterns
+   local parts = {}
+   for part in host:gmatch("[^%.]+") do
+      table.insert(parts, part)
+   end
+
+   if #parts >= 2 then
+      -- Base domain (e.g., example.com)
+      local baseDomain = parts[#parts-1] .. "%." .. parts[#parts]
+      table.insert(patterns, {text = "Domain", subText = parts[#parts-1] .. "." .. parts[#parts], pattern = baseDomain})
+
+      -- Full host if different from base domain (e.g., app.example.com)
+      if #parts > 2 then
+         local fullHost = host:gsub("%.", "%%.")
+         table.insert(patterns, {text = "Subdomain", subText = host, pattern = fullHost})
+      end
+   end
+
+   -- Full URL pattern (escape special chars)
+   local fullPattern = url:gsub("([%.%-%+%[%]%(%)%$%^%%%?%*])", "%%%1")
+   table.insert(patterns, {text = "Full URL", subText = url, pattern = fullPattern})
+
+   return patterns
+end
+
+function obj:appendPatternToFile(patternFile, pattern)
+   -- Expand ~ to home directory
+   local expandedPath = patternFile:gsub("^~", os.getenv("HOME"))
+
+   -- Append pattern to file
+   local file = io.open(expandedPath, "a")
+   if file then
+      file:write(pattern .. "\n")
+      file:close()
+      self.logger.df("Appended pattern '%s' to file '%s'", pattern, expandedPath)
+      return true
+   else
+      self.logger.ef("Failed to open file '%s' for writing", expandedPath)
+      return false
+   end
+end
+
+function obj:setupPatternChooser()
+   if self._patternChooser then return end
+
+   self._patternChooser = hs.chooser.new(function(choice)
+      if choice == nil then
+         self._pendingUrl = nil
+         self._pendingBrowser = nil
+         return
+      end
+
+      local url = self._pendingUrl
+      local browser = self._pendingBrowser
+      self._pendingUrl = nil
+      self._pendingBrowser = nil
+
+      if browser.patternFile and choice.pattern then
+         self:appendPatternToFile(browser.patternFile, choice.pattern)
+      end
+
+      if url and browser.bundleId then
+         hs.application.launchOrFocusByBundleID(browser.bundleId)
+         hs.urlevent.openURLWithBundle(url, browser.bundleId)
+      end
+   end)
+
+   self._patternChooser:searchSubText(true)
+   self._patternChooser:placeholderText("Select pattern to save...")
+end
+
+function obj:showPatternChooser(url, browser)
+   self:setupPatternChooser()
+   self._pendingUrl = url
+   self._pendingBrowser = browser
+
+   local patterns = self:parseUrlPatterns(url)
+
+   -- Add icons
+   for i, p in ipairs(patterns) do
+      p.image = hs.image.imageFromName("NSBookmarksTemplate")
+   end
+
+   self._patternChooser:rows(#patterns + 1)
+   self._patternChooser:choices(patterns)
+   self._patternChooser:show()
+end
+
+function obj:setupChooser()
+   if self._chooser then return end
+
+   self._chooser = hs.chooser.new(function(choice)
+      if choice == nil then
+         -- User dismissed, do nothing
+         self.logger.df("Browser chooser dismissed, URL not opened")
+         self._pendingUrl = nil
+         return
+      end
+
+      local url = self._pendingUrl
+      local mods = hs.eventtap.checkKeyboardModifiers()
+
+      if choice.action == "copy" then
+         self._pendingUrl = nil
+         self.logger.df("Copying URL '%s' to clipboard", url)
+         hs.pasteboard.setContents(url)
+      elseif mods.shift and choice.patternFile then
+         -- Show pattern chooser (don't clear _pendingUrl yet)
+         -- Small delay to let browser chooser fully close before showing pattern chooser
+         self.logger.df("Shift held, showing pattern chooser for '%s'", choice.text)
+         hs.timer.doAfter(0.1, function()
+            self:showPatternChooser(url, choice)
+         end)
+      elseif url and choice.bundleId then
+         self._pendingUrl = nil
+         self.logger.df("Opening URL '%s' with '%s'", url, choice.bundleId)
+         hs.application.launchOrFocusByBundleID(choice.bundleId)
+         hs.urlevent.openURLWithBundle(url, choice.bundleId)
+      end
+   end)
+
+   self._chooser:rows(#self.browser_chooser + 2)
+   self._chooser:searchSubText(true)
+   self._chooser:placeholderText("Select browser...")
+end
+
+function obj:showBrowserChooser(url)
+   self:setupChooser()
+   self._pendingUrl = url
+
+   -- Build choices from browser_chooser config
+   local choices = {}
+   for i, browser in ipairs(self.browser_chooser) do
+      table.insert(choices, {
+         text = browser.name,
+         subText = browser.patternFile and "⇧ to save pattern" or browser.bundleId,
+         image = hs.image.imageFromAppBundle(browser.bundleId),
+         bundleId = browser.bundleId,
+         patternFile = browser.patternFile,
+      })
+   end
+
+   -- Add copy to clipboard option
+   table.insert(choices, {
+      text = "Copy to clipboard",
+      subText = "Copy URL to clipboard",
+      image = hs.image.imageFromName("NSActionTemplate"),
+      action = "copy",
+   })
+
+   self._chooser:choices(choices)
+   self._chooser:show()
 end
 
 --- URLDispatcher:dispatchURL(scheme, host, params, fullUrl, senderPid)
@@ -296,8 +479,11 @@ function obj:dispatchURL(scheme, host, params, fullUrl, senderPid)
          end
       end
    end
-   -- Fall through to the default handler
-   if type(self.default_handler) == "string" then
+   -- Fall through: check for browser chooser or default handler
+   if self.browser_chooser and #self.browser_chooser > 0 then
+      self.logger.df("No match found, showing browser chooser")
+      self:showBrowserChooser(url)
+   elseif type(self.default_handler) == "string" then
       self.logger.df("No match found, opening with default handler '%s'", self.default_handler)
       hs.application.launchOrFocusByBundleID(self.default_handler)
       hs.urlevent.openURLWithBundle(url, self.default_handler)

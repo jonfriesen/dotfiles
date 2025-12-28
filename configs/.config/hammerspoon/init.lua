@@ -37,6 +37,11 @@ spoon.Emojis:bindHotkeys({ toggle = {{"alt", "shift"}, "z"} })
 -- Set up patterns and browsers for URLDispatcher
 spoon.URLDispatcher.logger.setLogLevel("debug")
 spoon.URLDispatcher.default_handler = "net.imput.Helium"
+spoon.URLDispatcher.browser_chooser = {
+ {name = "Personal", bundleId = "net.imput.Helium", patternFile = "personal.pat"},
+ {name = "Work", bundleId = "com.google.chrome", patternFile = "work.pat"},
+ {name = "Safari", bundleId = "com.apple.Safari"},
+}
 spoon.URLDispatcher.url_patterns = {
     -- Work patterns (evaluated first - more specific)
     { "work.pat", "com.google.Chrome" },

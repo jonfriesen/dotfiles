@@ -3,3 +3,4 @@ githubusercontent%.com
 gist%.github%.com
 reddit%.com
 facebook%.com
+sketch%.dev
