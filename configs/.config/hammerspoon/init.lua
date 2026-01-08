@@ -5,6 +5,7 @@ hs.loadSpoon("ScreenCapture")
 hs.loadSpoon("Emojis")
 hs.loadSpoon("MiddleClickDragScroll"):start()
 hs.loadSpoon("URLDispatcher")
+hs.loadSpoon("Caffeine"):start()
 
 -- Start the ReverseScroll Spoon
 -- spoon.ReverseScroll.logger.setLogLevel('debug')  -- Set to 'debug' for more verbose logging
