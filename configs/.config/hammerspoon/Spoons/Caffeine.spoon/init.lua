@@ -18,6 +18,7 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 obj.menuBarItem = nil
 obj.hotkeyToggle = nil
+obj.lockWatcher = nil
 
 -- Internal function used to find our location, so we know where to load files from
 local function script_path()
@@ -27,6 +28,14 @@ end
 obj.spoonPath = script_path()
 
 function obj:init()
+end
+
+function obj:lockEventHandler(event)
+    if event == hs.caffeinate.watcher.screensDidLock then
+        if hs.caffeinate.get("displayIdle") then
+            self:setState(false)
+        end
+    end
 end
 
 --- Caffeine:bindHotkeys(mapping)
@@ -68,6 +77,11 @@ function obj:start()
     end
     self.setDisplay(hs.caffeinate.get("displayIdle"))
 
+    self.lockWatcher = hs.caffeinate.watcher.new(function(event)
+        self:lockEventHandler(event)
+    end)
+    self.lockWatcher:start()
+
     return self
 end
 
@@ -84,6 +98,10 @@ function obj:stop()
     if self.menuBarItem then self.menuBarItem:delete() end
     if (self.hotkeyToggle) then
         self.hotkeyToggle:disable()
+    end
+    if self.lockWatcher then
+        self.lockWatcher:stop()
+        self.lockWatcher = nil
     end
     self.menuBarItem = nil
     return self
