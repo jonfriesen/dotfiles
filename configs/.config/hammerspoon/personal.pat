@@ -4,3 +4,8 @@ gist%.github%.com
 reddit%.com
 facebook%.com
 sketch%.dev
+x%.com
+instagram%.com
+amazon%.ca
+westjet%.com
+youtu%.be
