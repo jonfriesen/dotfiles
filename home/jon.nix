@@ -6,7 +6,7 @@ let
   # signing. Leave empty to keep signing off.
   #   1Password → your SSH key item → "Copy Public Key"
   #   e.g. "ssh-ed25519 AAAAC3Nza... jon@framework"
-  signingKey = "";
+  signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDLXc+/2CnTeiWSWNEEka+IeyvxbcHtw8BbrhD7GMLzv jon-mb-air";
 
   onePasswordAgent = "${config.home.homeDirectory}/.1password/agent.sock";
 in
