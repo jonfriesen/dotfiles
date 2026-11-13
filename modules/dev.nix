@@ -12,6 +12,12 @@
     zsh
   ];
 
+  # The channel-based command-not-found doesn't work under flakes; nix-index
+  # replaces it, and `comma` (`, cowsay hi`) runs a binary without installing it.
+  programs.command-not-found.enable = false;
+  programs.nix-index-database.comma.enable = true;
+  programs.nix-index.enableZshIntegration = true;
+
   # 1Password serves SSH keys, so don't start the stock ssh-agent.
   programs.ssh.startAgent = false;
 
@@ -23,8 +29,7 @@
       dates = "weekly";
       flags = [ "--all" ];
     };
-    # Rootless is available too, but the rootful daemon + docker group is what
-    # testcontainers and most compose setups expect.
+    # Rootful daemon + docker group is what compose and testcontainers expect.
   };
 
   # ─── Editor ────────────────────────────────────────────────────────────

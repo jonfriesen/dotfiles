@@ -12,6 +12,13 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Prebuilt nix-index database — restores `command-not-found` behaviour,
+    # which the channel-based version loses once you move to flakes.
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -20,6 +27,7 @@
       nixpkgs,
       nixos-hardware,
       home-manager,
+      nix-index-database,
       ...
     }@inputs:
     {
@@ -31,6 +39,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           nixos-hardware.nixosModules.framework-intel-core-ultra-series3
+          nix-index-database.nixosModules.nix-index
           ./hosts/framework
 
           home-manager.nixosModules.home-manager
