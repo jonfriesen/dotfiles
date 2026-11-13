@@ -47,7 +47,7 @@
     packages = with pkgs; [
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       inter
       source-serif
       nerd-fonts.jetbrains-mono

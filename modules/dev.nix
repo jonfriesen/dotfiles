@@ -42,7 +42,7 @@
     # Nix tooling
     nix-output-monitor
     nix-tree
-    nixfmt-rfc-style
+    nixfmt
     nil # nix language server
   ];
 }

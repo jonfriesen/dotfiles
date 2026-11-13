@@ -4,7 +4,7 @@
 let
   # Paste the public key of your 1Password SSH key here to turn on commit
   # signing. Leave empty to keep signing off.
-  #   1Password → your SSH key → "Copy Public Key"
+  #   1Password → your SSH key item → "Copy Public Key"
   #   e.g. "ssh-ed25519 AAAAC3Nza... jon@framework"
   signingKey = "";
 
@@ -22,7 +22,7 @@ in
     # Go toolchain
     go
     gopls
-    gotools # goimports, etc.
+    gotools # goimports et al
     go-tools # staticcheck
     delve
     golangci-lint
@@ -45,11 +45,6 @@ in
     unzip
     file
     watchexec
-
-    # Git & forge
-    gh
-    lazygit
-    difftastic
   ];
 
   # ─── Shell ─────────────────────────────────────────────────────────────
@@ -87,7 +82,7 @@ in
     };
 
     initContent = ''
-      # Sensible word boundaries: treat / and . as separators
+      # Treat / and . as word separators for ctrl-w etc.
       WORDCHARS="''${WORDCHARS//[\/.]}"
 
       # Edit the current command line in $EDITOR with ctrl-x ctrl-e
@@ -95,7 +90,6 @@ in
       zle -N edit-command-line
       bindkey "^X^E" edit-command-line
 
-      # Quick scratch dir for throwaway work
       mkcd() { mkdir -p "$1" && cd "$1"; }
     '';
   };
@@ -113,6 +107,7 @@ in
 
   programs.eza.enable = true;
   programs.bat.enable = true;
+
   programs.zoxide = {
     enable = true;
     options = [ "--cmd cd" ];
@@ -131,7 +126,7 @@ in
     settings = {
       style = "compact";
       inline_height = 20;
-      # Local-only by default; run `atuin register` if you want sync.
+      # Local-only by default; run `atuin register` if you ever want sync.
       auto_sync = false;
       update_check = false;
     };
@@ -147,10 +142,19 @@ in
   # ─── Git ───────────────────────────────────────────────────────────────
   programs.git = {
     enable = true;
-    userName = "Jon Friesen";
-    userEmail = "jon@jonfriesen.ca";
 
-    extraConfig = {
+    signing = {
+      format = "ssh";
+      # 1Password holds the private key and performs the signature.
+      signer = "${pkgs._1password-gui}/bin/op-ssh-sign";
+      key = if signingKey == "" then null else signingKey;
+      signByDefault = signingKey != "";
+    };
+
+    settings = {
+      user.name = "Jon Friesen";
+      user.email = "jon@jonfriesen.ca";
+
       init.defaultBranch = "main";
       pull.rebase = true;
       push.autoSetupRemote = true;
@@ -163,25 +167,18 @@ in
       column.ui = "auto";
       branch.sort = "-committerdate";
 
-      # SSH-based commit signing, with 1Password holding the key.
-      gpg.format = "ssh";
-      "gpg \"ssh\"".program = "${pkgs._1password-gui}/bin/op-ssh-sign";
-      user.signingKey = signingKey;
-      commit.gpgsign = signingKey != "";
-      tag.gpgsign = signingKey != "";
-    };
-
-    aliases = {
-      s = "status -sb";
-      co = "checkout";
-      sw = "switch";
-      br = "branch";
-      ci = "commit";
-      amend = "commit --amend --no-edit";
-      last = "log -1 HEAD --stat";
-      lg = "log --oneline --graph --decorate -20";
-      unstage = "restore --staged";
-      wip = "!git add -A && git commit -m wip --no-verify";
+      alias = {
+        s = "status -sb";
+        co = "checkout";
+        sw = "switch";
+        br = "branch";
+        ci = "commit";
+        amend = "commit --amend --no-edit";
+        last = "log -1 HEAD --stat";
+        lg = "log --oneline --graph --decorate -20";
+        unstage = "restore --staged";
+        wip = "!git add -A && git commit -m wip --no-verify";
+      };
     };
 
     ignores = [
@@ -189,11 +186,13 @@ in
       ".envrc.local"
       "result"
       "result-*"
-      ".DS_Store"
       "*.swp"
     ];
+  };
 
-    difftastic.enable = true;
+  programs.difftastic = {
+    enable = true;
+    git.enable = true;
   };
 
   programs.gh = {
@@ -209,13 +208,20 @@ in
   # ─── SSH (keys served by the 1Password agent) ──────────────────────────
   programs.ssh = {
     enable = true;
-    extraConfig = ''
-      Host *
-        IdentityAgent ${onePasswordAgent}
-        AddKeysToAgent yes
-        ServerAliveInterval 60
-        ServerAliveCountMax 3
-    '';
+    enableDefaultConfig = false;
+    settings."*" = {
+      IdentityAgent = onePasswordAgent;
+      AddKeysToAgent = "yes";
+      ForwardAgent = false;
+      Compression = false;
+      ServerAliveInterval = 60;
+      ServerAliveCountMax = 3;
+      HashKnownHosts = false;
+      UserKnownHostsFile = "~/.ssh/known_hosts";
+      ControlMaster = "auto";
+      ControlPath = "~/.ssh/master-%r@%n:%p";
+      ControlPersist = "10m";
+    };
   };
 
   # ─── Editor ────────────────────────────────────────────────────────────
@@ -273,7 +279,7 @@ in
 
   home.sessionPath = [ "${config.home.homeDirectory}/go/bin" ];
 
-  # Pick up the Plasma dark theme in GTK apps too.
+  # Pick up a dark theme in GTK apps too, to match Plasma's Breeze Dark.
   gtk.enable = true;
   gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
   gtk.gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
