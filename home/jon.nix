@@ -1,5 +1,5 @@
 # home-manager configuration for jon.
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
   # Paste the public key of your 1Password SSH key here to turn on commit
@@ -81,17 +81,26 @@ in
       nix-gens = "nixos-rebuild list-generations";
     };
 
-    initContent = ''
-      # Treat / and . as word separators for ctrl-w etc.
-      WORDCHARS="''${WORDCHARS//[\/.]}"
+    initContent = lib.mkMerge [
+      (lib.mkOrder 1000 ''
+        # Treat / and . as word separators for ctrl-w etc.
+        WORDCHARS="''${WORDCHARS//[\/.]}"
 
-      # Edit the current command line in $EDITOR with ctrl-x ctrl-e
-      autoload -z edit-command-line
-      zle -N edit-command-line
-      bindkey "^X^E" edit-command-line
+        # Edit the current command line in $EDITOR with ctrl-x ctrl-e
+        autoload -z edit-command-line
+        zle -N edit-command-line
+        bindkey "^X^E" edit-command-line
 
-      mkcd() { mkdir -p "$1" && cd "$1"; }
-    '';
+        mkcd() { mkdir -p "$1" && cd "$1"; }
+      '')
+
+      # zoxide must initialise *after* starship, direnv and atuin so that its
+      # chpwd hook is registered last — otherwise it prints a doctor warning on
+      # every shell start. mkAfter (1500) lands past home-manager's own hooks.
+      (lib.mkAfter ''
+        eval "$(${pkgs.zoxide}/bin/zoxide init zsh --cmd cd)"
+      '')
+    ];
   };
 
   programs.starship = {
@@ -110,6 +119,8 @@ in
 
   programs.zoxide = {
     enable = true;
+    # Initialised by hand at the end of the zsh config above, for hook ordering.
+    enableZshIntegration = false;
     options = [ "--cmd cd" ];
   };
 
@@ -195,13 +206,10 @@ in
     git.enable = true;
   };
 
-  programs.gh = {
-    enable = true;
-    settings = {
-      git_protocol = "ssh";
-      prompt = "enabled";
-    };
-  };
+  # Deliberately no `settings` here: home-manager would write config.yml as a
+  # read-only store symlink, but gh needs to write that file itself during
+  # `gh auth login`, `gh config set` and `gh alias set`. gh owns its config.
+  programs.gh.enable = true;
 
   programs.lazygit.enable = true;
 
