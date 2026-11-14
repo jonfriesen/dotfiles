@@ -7,7 +7,13 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "";
+    # Caps Lock acts as Escape. Setting `options` replaces the NixOS default,
+    # so terminate:ctrl_alt_bksp is kept explicitly alongside it.
+    options = "terminate:ctrl_alt_bksp,caps:escape";
   };
+
+  # Use the same layout and options on the text consoles (Ctrl+Alt+F-keys).
+  console.useXkbConfig = true;
 
   services.displayManager.sddm = {
     enable = true;
