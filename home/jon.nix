@@ -209,10 +209,13 @@ in
     git.enable = true;
   };
 
-  # Deliberately no `settings` here: home-manager would write config.yml as a
-  # read-only store symlink, but gh needs to write that file itself during
-  # `gh auth login`, `gh config set` and `gh alias set`. gh owns its config.
+  # programs.gh writes config.yml as a read-only store symlink whenever it is
+  # enabled -- `settings` only adds keys to it. But gh needs to write that file
+  # itself during `gh auth login`, `gh config set` and `gh alias set`, so the
+  # file is disabled here while the module's package and git credential-helper
+  # wiring are kept.
   programs.gh.enable = true;
+  xdg.configFile."gh/config.yml".enable = lib.mkForce false;
 
   programs.lazygit.enable = true;
 
