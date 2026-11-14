@@ -87,6 +87,10 @@
   };
 
   # ─── Desktop apps ──────────────────────────────────────────────────────
+  # Run Electron apps (Discord, Slack, ...) natively on Wayland instead of via
+  # XWayland, which renders them blurry at fractional display scaling (1.7x).
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   environment.systemPackages = with pkgs; [
     kdePackages.kate
     kdePackages.filelight

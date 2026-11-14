@@ -32,6 +32,11 @@ in
     delve
     golangci-lint
 
+    # Chat
+    discord # nixpkgs wraps it to skip Discord's forced host updates
+    telegram-desktop
+    slack
+
     # CLI
     ripgrep
     fd
