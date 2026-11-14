@@ -98,6 +98,8 @@
     pciutils
     usbutils
     lm_sensors
-    intel-gpu-tools # intel_gpu_top: live GPU and video-engine usage
+    # Live GPU and video-engine usage. intel_gpu_top (intel-gpu-tools) cannot
+    # read engine stats on the xe driver this GPU uses; nvtop reads them fine.
+    nvtopPackages.intel
   ];
 }
