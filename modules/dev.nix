@@ -21,6 +21,22 @@
   # 1Password serves SSH keys, so don't start the stock ssh-agent.
   programs.ssh.startAgent = false;
 
+
+  # ─── Foreign binaries ──────────────────────────────────────────────────
+  # NixOS has no /lib64/ld-linux-x86-64.so.2, so binaries built for generic
+  # Linux cannot run. nix-ld supplies a loader at that path plus a library
+  # search path, which is what lets self-updating vendor binaries (e.g. the
+  # native Claude Code install, which manages its own updates) work here.
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib # libstdc++ / libgcc_s
+      zlib
+      openssl
+      curl
+    ];
+  };
+
   # ─── Containers ────────────────────────────────────────────────────────
   virtualisation.docker = {
     enable = true;
@@ -39,7 +55,6 @@
   environment.systemPackages = with pkgs; [
     git # needed at system level so flake rebuilds work
     helix
-    unstable.claude-code # newer than the 26.05 pin; see the overlay in hosts/framework
 
     docker-compose
     docker-buildx

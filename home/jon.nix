@@ -323,7 +323,12 @@ in
     SSH_AUTH_SOCK = onePasswordAgent;
   };
 
-  home.sessionPath = [ "${config.home.homeDirectory}/go/bin" ];
+  home.sessionPath = [
+    # Ahead of the Nix profiles, so a natively-installed, self-updating
+    # claude takes precedence over any Nix-provided one.
+    "${config.home.homeDirectory}/.local/bin"
+    "${config.home.homeDirectory}/go/bin"
+  ];
 
   home.file = lib.mkIf (signingKey != "") {
     ".config/git/allowed_signers".text = "jon@jonfriesen.ca ${signingKey}\n";
