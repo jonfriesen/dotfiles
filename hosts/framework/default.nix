@@ -44,6 +44,21 @@
     ];
   };
 
+  # Passwordless sudo for jon only (other wheel members still need a password).
+  # Trade-off: anything running as jon, including AI coding agents, can become
+  # root without a prompt.
+  security.sudo.extraRules = [
+    {
+      users = [ "jon" ];
+      commands = [
+        {
+          command = "ALL";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   # ─── Nix itself ────────────────────────────────────────────────────────
   nix.settings = {
     experimental-features = [
