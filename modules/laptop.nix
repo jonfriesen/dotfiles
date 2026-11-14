@@ -70,6 +70,11 @@
   services.fwupd.enable = true;
   hardware.enableRedistributableFirmware = true;
 
+  # ─── Thunderbolt / USB4 ────────────────────────────────────────────────
+  # boltd authorizes Thunderbolt and USB4 devices (docks, eGPUs) and backs the
+  # Thunderbolt page in Plasma System Settings.
+  services.hardware.bolt.enable = true;
+
   # ─── Bluetooth ─────────────────────────────────────────────────────────
   hardware.bluetooth = {
     enable = true;
@@ -93,5 +98,6 @@
     pciutils
     usbutils
     lm_sensors
+    intel-gpu-tools # intel_gpu_top: live GPU and video-engine usage
   ];
 }
