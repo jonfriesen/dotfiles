@@ -347,9 +347,6 @@ in
     "${config.home.homeDirectory}/go/bin"
   ];
 
-  # Shortcut to the lab Samba share (mounted on demand at /mnt/jon-data).
-  home.file."NAS".source = config.lib.file.mkOutOfStoreSymlink "/mnt/jon-data";
-
   home.file.".config/git/allowed_signers" = lib.mkIf (signingKey != "") {
     text = "jon@jonfriesen.ca ${signingKey}\n";
   };

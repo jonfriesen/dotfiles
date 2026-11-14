@@ -7,7 +7,6 @@
     ../../modules/desktop.nix
     ../../modules/laptop.nix
     ../../modules/dev.nix
-    ../../modules/shares.nix
   ];
 
   # ─── Boot ──────────────────────────────────────────────────────────────
