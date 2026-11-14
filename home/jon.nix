@@ -1,5 +1,10 @@
 # home-manager configuration for jon.
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   # Paste the public key of your 1Password SSH key here to turn on commit
@@ -53,6 +58,18 @@ in
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     enableCompletion = true;
+
+    # home.sessionPath lands in hm-session-vars.sh, which self-guards with
+    # __HM_SESS_VARS_SOURCED and so only applies once per desktop session --
+    # meaning a PATH change needs a full logout, not just a new terminal.
+    # Prepend here instead (.zshenv, outside that guard) so every zsh gets it.
+    # The case guard keeps it idempotent across nested shells.
+    envExtra = ''
+      case ":$PATH:" in
+        *":$HOME/.local/bin:"*) ;;
+        *) export PATH="$HOME/.local/bin:$PATH" ;;
+      esac
+    '';
 
     history = {
       size = 100000;
