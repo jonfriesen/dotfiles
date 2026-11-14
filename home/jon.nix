@@ -253,6 +253,23 @@ in
     };
   };
 
+  # ─── Terminal ──────────────────────────────────────────────────────────
+  programs.ghostty = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      theme = "Catppuccin Mocha"; # matches the helix theme
+      font-family = "JetBrainsMono Nerd Font";
+      font-size = 11;
+      window-padding-x = 8;
+      window-padding-y = 6;
+      copy-on-select = "clipboard";
+      mouse-hide-while-typing = true;
+      confirm-close-surface = false;
+      window-decoration = "server"; # let Plasma draw the titlebar
+    };
+  };
+
   # ─── Editor ────────────────────────────────────────────────────────────
   programs.helix = {
     enable = true;
