@@ -6,6 +6,10 @@
     # To track unstable instead, change to "github:NixOS/nixpkgs/nixos-unstable".
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
+    # Second nixpkgs for packages that need to be newer than the stable
+    # release, pulled in selectively via the `unstable` overlay below.
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {

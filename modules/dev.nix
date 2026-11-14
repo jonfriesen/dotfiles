@@ -39,7 +39,7 @@
   environment.systemPackages = with pkgs; [
     git # needed at system level so flake rebuilds work
     helix
-    claude-code
+    unstable.claude-code # newer than the 26.05 pin; see the overlay in hosts/framework
 
     docker-compose
     docker-buildx

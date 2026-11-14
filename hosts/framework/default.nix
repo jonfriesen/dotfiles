@@ -70,6 +70,17 @@
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
+  # Exposes nixpkgs-unstable as `pkgs.unstable.*` so individual packages can be
+  # taken from it while the rest of the system stays on the 26.05 release.
+  nixpkgs.overlays = [
+    (final: prev: {
+      unstable = import inputs.nixpkgs-unstable {
+        inherit (prev.stdenv.hostPlatform) system;
+        config.allowUnfree = true;
+      };
+    })
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   # Do not change after install — see the NixOS manual.
