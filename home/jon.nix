@@ -294,8 +294,4 @@ in
     ".config/git/allowed_signers".text = "jon@jonfriesen.ca ${signingKey}\n";
   };
 
-  # Pick up a dark theme in GTK apps too, to match Plasma's Breeze Dark.
-  gtk.enable = true;
-  gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
-  gtk.gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
 }
