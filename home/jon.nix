@@ -178,6 +178,9 @@ in
       column.ui = "auto";
       branch.sort = "-committerdate";
 
+      # Lets `git log --show-signature` verify your own commits locally.
+      gpg.ssh.allowedSignersFile = "${config.home.homeDirectory}/.config/git/allowed_signers";
+
       alias = {
         s = "status -sb";
         co = "checkout";
@@ -286,6 +289,10 @@ in
   };
 
   home.sessionPath = [ "${config.home.homeDirectory}/go/bin" ];
+
+  home.file = lib.mkIf (signingKey != "") {
+    ".config/git/allowed_signers".text = "jon@jonfriesen.ca ${signingKey}\n";
+  };
 
   # Pick up a dark theme in GTK apps too, to match Plasma's Breeze Dark.
   gtk.enable = true;
