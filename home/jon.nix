@@ -167,6 +167,15 @@ in
       user.email = "jon@jonfriesen.ca";
 
       init.defaultBranch = "main";
+
+      core.editor = "hx";
+
+      # Always talk to GitHub over SSH, whatever URL form a remote was added
+      # with. Carried over from the MacBook config.
+      url."git@github.com:".insteadOf = [
+        "git://github.com/"
+        "https://github.com/"
+      ];
       pull.rebase = true;
       push.autoSetupRemote = true;
       push.default = "current";
@@ -182,16 +191,22 @@ in
       gpg.ssh.allowedSignersFile = "${config.home.homeDirectory}/.config/git/allowed_signers";
 
       alias = {
-        s = "status -sb";
+        # Carried over from the MacBook config.
+        save = "!git add -A && git commit -m 'SAVEPOINT'";
+        undo = "reset HEAD~1 --mixed";
+        amend = "commit -a --amend";
         co = "checkout";
-        sw = "switch";
         br = "branch";
         ci = "commit";
-        amend = "commit --amend --no-edit";
+        st = "status -sb";
+        p = "push";
+        ll = "log --oneline";
+
+        # Additions beyond it.
+        sw = "switch";
         last = "log -1 HEAD --stat";
         lg = "log --oneline --graph --decorate -20";
         unstage = "restore --staged";
-        wip = "!git add -A && git commit -m wip --no-verify";
       };
     };
 
