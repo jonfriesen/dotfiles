@@ -40,6 +40,32 @@
     HandleLidSwitchDocked = "ignore";
   };
 
+  # ─── Battery charge limit ──────────────────────────────────────────────
+  # Stop charging at 80% to reduce battery wear. The kernel's
+  # cros_charge_control driver exposes the EC limit as
+  # charge_control_end_threshold (the same setting `framework_tool
+  # --charge-limit` changes). Firmware reapplies the BIOS value at every boot,
+  # so set it again once the attribute appears. It survives suspend.
+  systemd.services.battery-charge-limit = {
+    description = "Set battery charge limit to 80%";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-modules-load.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      f=/sys/class/power_supply/BAT1/charge_control_end_threshold
+      # cros_charge_control attaches the attribute after the battery appears;
+      # give it up to 30 seconds.
+      for _ in $(seq 30); do
+        [ -w "$f" ] && break
+        sleep 1
+      done
+      echo 80 > "$f"
+    '';
+  };
+
   # ─── Firmware ──────────────────────────────────────────────────────────
   services.fwupd.enable = true;
   hardware.enableRedistributableFirmware = true;
