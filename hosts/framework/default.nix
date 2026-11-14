@@ -26,6 +26,18 @@
     allowedUDPPorts = [ ];
   };
 
+  # Tailscale VPN. After the first switch, log in once with `sudo tailscale up`.
+  services.tailscale = {
+    enable = true;
+    # Open UDP 41641 so peers can connect directly instead of via DERP relays.
+    openFirewall = true;
+    # Loose reverse-path filtering, needed to use subnet routes and exit nodes
+    # advertised by other machines (e.g. reaching the home lab while away).
+    useRoutingFeatures = "client";
+    # Let jon run `tailscale` commands without sudo.
+    extraSetFlags = [ "--operator=jon" ];
+  };
+
   # ─── Locale & time ─────────────────────────────────────────────────────
   time.timeZone = "America/Edmonton";
   i18n.defaultLocale = "en_CA.UTF-8";
