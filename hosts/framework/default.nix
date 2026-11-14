@@ -12,6 +12,7 @@
   # ─── Boot ──────────────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 10; # keep the 1G /boot from filling up
+  boot.loader.timeout = 2; # seconds; hold a key during boot to stop at the menu
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
