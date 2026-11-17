@@ -23,6 +23,14 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Umbriel (Wayland compositor), Noctalia (desktop shell) and Luciole
+    # (file manager), all from the Noctalia team and used by
+    # modules/noctalia.nix. Deliberately no `follows`: each pins its own
+    # nixpkgs, and overriding it would miss the upstream binary caches.
+    umbriel.url = "github:noctalia-dev/umbriel";
+    noctalia.url = "github:noctalia-dev/noctalia";
+    luciole.url = "github:noctalia-dev/luciole";
   };
 
   outputs =
